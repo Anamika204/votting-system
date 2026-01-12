@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #222; color: white; }
+        .container { width: 500px; margin: auto; }
+        .box { padding: 30px; border: 1px solid #444; border-radius: 10px; background-color: #333; margin-bottom: 40px; }
+        input { width: 100%; margin-top: 10px; padding: 8px; font-size: 14px; }
+        button { background-color: blue; color: white; border: none; cursor: pointer; font-size: 14px; padding: 10px; width: auto; min-width: 100px; margin-top: 10px; }
+        button:hover { background-color: darkblue; }
+
+        /* Registration Submit button styling */
+        .submit-btn {
+            background-color: darkblue; 
+            font-size: 18px;
+            padding: 15px;
+            width: 250px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .submit-btn:hover {
+            background-color: navy;
+        }
+    </style>
+</head>
+<body>
+    <h2>VERIFICATION</h2>
+    <div class="container">
+        <div class="box">
+            <h3>Phone Verification</h3>
+            <input type="text" id="phone" placeholder="Phone Number" required>
+            <button type="button" onclick="sendOTP()">Submit OTP</button>
+            <input type="text" id="otp" placeholder="Enter OTP" required>
+            <button type="button" onclick="verifyOTP()">Verify OTP</button>
+        </div>
+        <div class="box">
+            <h3>Email Verification</h3>
+            <input type="email" id="email" placeholder="Email" required>
+            <button type="button" onclick="sendEmailVerification()">Submit Email</button>
+            <input type="text" id="emailOtp" placeholder="Enter Email OTP" required>
+            <button type="button" onclick="verifyEmailOTP()">Verify Email</button>
+        </div>
+        
+        <!-- Big Registration Submit Button -->
+        <button type="submit" class="submit-btn">Registration Submit</button>
+    </div>
+    
+    <script>
+        function sendEmailVerification() {
+            let emailOtp = Math.floor(1000 + Math.random() * 9000);
+            sessionStorage.setItem("emailOtp", emailOtp);
+            alert("Email OTP Sent: " + emailOtp);  // In real case, send via email API
+        }
+
+        function sendOTP() {
+            let otp = Math.floor(1000 + Math.random() * 9000);
+            sessionStorage.setItem("otp", otp);
+            alert("OTP Sent: " + otp);  // In real case, send via SMS API
+        }
+        
+        function verifyOTP() {
+            let enteredOTP = document.getElementById("otp").value;
+            let storedOTP = sessionStorage.getItem("otp");
+            if (enteredOTP === storedOTP) {
+                alert("Phone verified!");
+            } else {
+                alert("Invalid OTP!");
+            }
+        }
+
+        function verifyEmailOTP() {
+            let enteredEmailOTP = document.getElementById("emailOtp").value;
+            let storedEmailOTP = sessionStorage.getItem("emailOtp");
+            if (enteredEmailOTP === storedEmailOTP) {
+                alert("Email verified!");
+            } else {
+                alert("Invalid Email OTP!");
+            }
+        }
+    </script>
+</body>
+</html>
